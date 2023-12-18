@@ -5,6 +5,7 @@ package entity;
 public class Product {
     private String name;
     private int price;
+    private int rating;
 
     public Product() {
     }
@@ -24,19 +25,19 @@ public class Product {
     public void setPrice(int price) {
         this.price = price;
     }
+    public int getRating() {
+        return rating;
+    }
+    
+     public void setRating(int rating) {
+        this.rating = rating;
+    }
 
     @Override
     public String toString() {
-        return "Product{" + "name=" + name + ", price=" + price + '}';
+        return "Product{" + "name=" + name + ", price=" + price + ", rating=" + rating +'}';
     } 
 
-    public Object[] getCustomers() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public Object getAuthors() {
-        return null;
-    }
 }
     
 

@@ -6,6 +6,7 @@ public class Customer {
     private String firstname;
     private String lastname;
     private int money;
+    private int rating;
 
     public Customer() {
     }
@@ -32,13 +33,23 @@ public class Customer {
     public void setMoney(int money) {
         this.money = money;
     }
+    
+    public int getRating() {
+        return rating;
+    }
+    
+     public void setRating(int rating) {
+        this.rating = rating;
+    }
     @Override
     public String toString() {
         return "Customer{" + "firstname=" + firstname
                            + ", lastname=" + lastname 
                            + ", money=" + money +
+                           ", rating=" + rating +
                                             '}';
     }
+
 }
    
     

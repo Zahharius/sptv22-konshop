@@ -19,13 +19,14 @@ public class App {
     private Customer[] customers;
     int history[];
     
-   //private final ProductManager productManager;
+    private final ProductManager productManager;
     
 public App(){
-    //productManager = new ProductManager();
+    productManager = new ProductManager();
     this.products = new Product[0];
     this.customers = new Customer[0];
     this.history = new int[0];
+
 }
     
     private boolean repeat;
@@ -44,8 +45,12 @@ public App(){
         System.out.println("5.ПОКУПАЮ");
         System.out.println("6.Сколько денег заработано");
         System.out.println("7.Дать покупателю ЕЩЁ ДЕНЕГ");
+        System.out.println("8.Рейтинг товаров");
+        System.out.println("9.Рейтинг покупателей");
+        System.out.println("10.Редактирование товаров");
+        System.out.println("11.Редактирование покупателей");
         System.out.println("Выберите номер задачи: ");  
-        int task = InputProtection.intInput(0,8); 
+        int task = InputProtection.intInput(0,11); 
          System.out.println("_____________________________");
         switch(task){
             case 0:
@@ -53,17 +58,12 @@ public App(){
                 break;
             case 1:
                 System.out.println("1.Добавить Товар");
-                ProductManager productManager = new ProductManager();
                 this.products = Arrays.copyOf(this.products, this.products.length+1);
                 this.products[this.products.length-1] = productManager.createProduct();
                 break;
             case 2:
                 System.out.println("2.Список товаров");
-                for (int i = 0; i<products.length;i++){
-                    Product producti = products[i];
-                    System.out.printf(i+1+". "+"%s%n",producti.getName());
-                    System.out.printf("%s%n", "стоит "+producti.getPrice()+" ДЕНЕГ");
-                }
+                productManager.showprod(products);
                 break;
             case 3:
                 System.out.println("3.Добавить покупателя");
@@ -82,25 +82,32 @@ public App(){
                 break;
             case 5:
                 System.out.println("5.ПОКУПАЮ");
+                System.out.println("---ТОВАРЫ---");
                 for (int i = 0; i<products.length;i++){
                     Product producti = products[i];
                     System.out.printf(i+1+". "+"Товар   = %s%n", producti.getName());
                     System.out.printf("Цена = %s%n", producti.getPrice());
                 }
+                System.out.println("---ПОКУПАТЕЛИ---");
                 for (int i = 0; i<customers.length;i++){
                     Customer customer = customers[i];
                     System.out.printf(i+1+". "+"Имя = %s%n", customer.getFirstname());
                     System.out.printf("Фамилия = %s%n", customer.getLastname());
                     System.out.printf("ДЕНЬГИ = %s%n", customer.getMoney());
+                }
                         System.out.println("Выберите покупателя: ");
                     int scan1 = scanner.nextInt();
                         System.out.println("Выберите товар: ");
                     int scan2 = scanner.nextInt();
                     int pokup = customers[scan1-1].getMoney() - products[scan2-1].getPrice();
                     customers[scan2-1].setMoney(pokup);
+                    int rat = 1;
+                    int rati = customers[scan1-1].getRating() + rat;
+                        customers[scan1-1].setRating(rati);
+                    int ratic = products[scan2-1].getRating() + rat;
+                        products[scan2-1].setRating(rati);
                     this.history = Arrays.copyOf(this.history, this.history.length+1);
                     this.history[this.history.length-1] = products[scan2-1].getPrice();
-                }
                 break;
             case 6:
                 System.out.println("6.Сколько денег заработано");
@@ -122,6 +129,31 @@ public App(){
                 int num2 = scanner.nextInt();
                 int moneyy = customers[num1-1].getMoney() + num2;
                         customers[num1-1].setMoney(moneyy);
+                break;
+            case 8:
+                System.out.println("8.Рейтинг товаров");
+             for (int i = 0; i<products.length;i++){
+                    Product producti = products[i];
+                    System.out.printf(i+1+". "+"%s%n",producti.getName());
+                    System.out.printf("%s%n", "куплено "+producti.getRating()+" раз(а)");
+                }
+             break;
+            case 9:
+                System.out.println("9.Рейтинг покупателей"); 
+                for (int i = 0; i<customers.length;i++){
+                    Customer customer = customers[i];
+                    System.out.printf(i+1+". "+"Имя = %s%n", customer.getFirstname());
+                    System.out.printf("Фамилия = %s%n", customer.getLastname());
+                    System.out.printf("%s%n", "покупал "+customer.getRating()+" раз(а)");
+                }
+                break;
+            case 10:
+                System.out.println("10. Редактирование товаров"); 
+                productManager.changeprod(products);
+            break;
+            case 11:
+                System.out.println("11.Редактирование покупателей");
+                CustomerManager.changecast(customers);
                 break;
                 default:
                 System.out.println("леее ты не то нажал");
